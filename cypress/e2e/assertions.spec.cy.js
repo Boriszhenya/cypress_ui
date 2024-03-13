@@ -1,8 +1,10 @@
+
 describe('Sauce Labs Demo - Assertions Test', () => {
     beforeEach(() => {
       // Заходим на Sauce Labs demo сайт в начале каждого теста
       //cy.visit('/') // Если у нас установлен baseUrl в конфиге
       cy.visit('https://www.saucedemo.com/')
+     
     })
   
     it('should login with valid credentials', () => {

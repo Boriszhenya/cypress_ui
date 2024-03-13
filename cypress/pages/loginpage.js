@@ -1,7 +1,8 @@
 class LoginPage {
     // Определяем локаторы
     get usernameInput() {
-      return cy.get('#user-name');
+      //return cy.get('#user-name');
+      return cy.get('[data-test="username"]');
     }
   
     get passwordInput() {
