@@ -1,4 +1,4 @@
-describe('automationtesting.in - Alerts and pop-ups test', () => {
+describe('automationtesting.in - Alert test', () => {
     beforeEach(() => {
         // Заходим на сайт https://demo.automationtesting.in/ в начале каждого теста
         cy.visit('https://demo.automationtesting.in/Alerts.html')

@@ -1,6 +1,11 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress')
+const fs = require('fs') // Зависимость файловой системы (file system) - для связывания\отвязывания видео
 
 module.exports = defineConfig({
+  projectId: "5a9p29",
+  video: true, // Включаем видео (не работает в cypress open!, только в run)
+  videoCompression: true, // Добавляем компрессию, чтобы не пожирать память
+  //screenshotOnRunFailure: false, // Добавлять ли скриншот при падении теста
   e2e: {
     setupNodeEvents(on, config) {
       on('before:browser:launch', (browser, launchOptions) => {
@@ -12,6 +17,18 @@ module.exports = defineConfig({
         }
     
         return launchOptions
+      })
+      on('after:spec', (spec, results) => { // Чтобы не хранить видео успешных тестов
+        if (results && results.video) {
+          // Есть ли у нас зафейленые тесты?
+          const failures = results.tests.some((test) =>
+            test.attempts.some((attempt) => attempt.state === 'failed')
+          )
+          if (!failures) {
+            // Удаляём видео если нет
+            fs.unlinkSync(results.video)
+          }
+        }
       })
     },
     component: {
